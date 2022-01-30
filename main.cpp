@@ -5,15 +5,12 @@ struct vec2 {
     float x, y, rad;
     vec2(float x1, float y1) :x(x1), y(y1) {}
     vec2(float value) :x(value), y(value) {}
-
     void set_rad(float r) { this->rad = r; }
-
 };
 
 struct vec3 {
     float x, y, z,r;
     vec3(float x1, float y1, float z1) :x(x1), y(y1), z(z1) {}
-
     vec3(float x1, float y1, float z1,float r1) :x(x1), y(y1), z(z1), r(r1) {}
     vec3 rotateY(vec3 a, double angle)
     {
@@ -29,16 +26,7 @@ struct vec3 {
         b.y = a.z * sin(angle) + a.y * cos(angle);
         return b;
     }
-
     vec3 setZ(float z1) { this->z = z1; }
-
-    /*vec3 norm(vec3 v) {
-        vec3 v1 = v;
-        v1.x = v.x / length(v);
-        v1.y = v.y / length(v);
-        v1.z = v.z / length(v);
-        return v1;
-    }*/
 };
 
 float length(vec3 const& v) { return sqrt(v.x * v.x + v.y * v.y + v.z * v.z); }
@@ -47,10 +35,7 @@ float length(float x1, float y1, float z1, float x2, float y2, float z2) {
     return (float)(sqrt(pow(x2-x1,2) + pow(y2-y1,2) + pow(z2 - z1,2))); 
 }
 
-
-
 float sphere(vec3 cam, vec3 ray, float r) {
-
     float len_x = abs(ray.x - cam.x);
     float len_z = abs(cam.z);
     float len_y = abs(ray.y - cam.y);
@@ -72,9 +57,7 @@ float sph(vec3 cam, vec3 ray, vec3 point, vec3 obj) {
         float point_z = z(ray.x, ray.y, obj.r);
         return length(cam.x, cam.y, cam.z, ray.x, ray.y, point_z);
     }
-    else {
-        return 0;
-    }
+    return 0;
 }
 
 float lighting(vec3 cam, vec3 ray, vec3 light, vec3 obj) {
@@ -82,9 +65,7 @@ float lighting(vec3 cam, vec3 ray, vec3 light, vec3 obj) {
         float point_z = z(ray.x, ray.y, obj.r);
         return length(light.x, light.y, light.z, ray.x, ray.y, point_z);
     }
-    else {
-        return 0;
-    }
+    return 0;
 }
 
 int main()
@@ -112,14 +93,11 @@ int main()
                 vec3 ray = vec3(x, y, 0);
                 vec3 point = vec3(x, y, 0);
                 
-
                 float len = sph(cam, ray, point, obj);
                 float light_len = lighting(cam, ray, light, obj);
                 int pixel = 0;
                 
-                if (len != 0 && light_len != 0) {
-                    pixel = (int)(abs(8/(light_len)));
-                }
+                if (len != 0 && light_len != 0) {pixel = (int)(abs(8/(light_len)));}
                 if (pixel < 0) { pixel = 0; }
                 if (pixel > gradientSize) { pixel = gradientSize; }
 
